@@ -1,0 +1,71 @@
+---
+title: "Trabajo class"
+author: "Joe"
+date: "2024-02-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Ejercicio 2.1
+
+A Markov chain has transition matrix.
+
+```{r}
+P=(matrix(c(0.1, 0.3, 0.6,0, 0.4, 0.6,0.3, 0.2, 0.5),ncol = 3,byrow = TRUE))
+P
+```
+
+with initial distribution:
+
+```{r}
+alfa=matrix(c(0.2, 0.3, 0.5),ncol = 3)
+alfa
+```
+
+Find the following:
+
+(a) $P(X_7=3|X_6=2)$
+(b) $P(X_9=2|X_1=2,X_5=1,X_7=3)$
+(c) $P(X_0=3|X_1=1)$
+(d) $E(X_2)$
+
+*Solución:*
+
+a)  $P(X_7=3|X_6=2)= 0.6$
+
+b)  $P(X_9=2|X_1=2,X_5=1,X_7=3)=P(X_9=2|X_7=3)$. como son dos pasos vamos a calcular el cuadrado de la matriz.
+
+```{r}
+library(matrixcalc)
+matrix.power(P,2)
+```
+
+Por lo tanto $P(X_9=2|X_1=2,X_5=1,X_7=3)= 0.27$
+
+(c) $P(X_0=3|X_1=1)=\frac{P(X_1=1|X_0=3)P(X_0=3)}{P(X_1=1)}$
+
+    #NOTA: Usamos el Teorema de Bayes para la resolución de este ejercicio.
+
+Para encontrar la probabilidad del denominador calculamos
+
+```{r}
+alfa %*% P 
+```
+
+Entonces: $P(X_0=3|X_1=1)=\frac{P(X_1=1|X_0=3)P(X_0=3)}{P(X_1=1)}=\frac{0.3*0.5}{0.17}$
+
+```{r}
+0.3*0.5/0.17
+```
+
+(d) $E(X_2)=1P(X_2=1)+2P(X_2=2)+3P(X_2=3)$
+
+```{r}
+P2<-matrix.power(P,2)
+alfa %*% P2 %*% matrix(c(1,2,3),nrow = 3)  
+```
+
+Nota: Lo que se realizo fue Producto Punto.
