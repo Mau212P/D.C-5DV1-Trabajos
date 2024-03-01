@@ -1,0 +1,46 @@
+---
+title: "Problema 2.23"
+author: "ErickEduardoRC"
+date: "2024-02-29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problema 2.23
+
+Andrei Andreyevich Markov,the Russian mathematician who introduced Markov chains over 100 years ago, first applied them in the analysis of the poem Eugene Onegin by Alexander Pushkin. In the first 20,000 letters of the poem, Markov counted (byhand!) 8,638 vowels and 11,362 consonants. He also tallied pairs of successive letters. Of the 8,638 pairs that start with vowels, 1,104 pairs are vowel--vowel. Of the 11,362 pairs that start with consonants, 3,827 are consonant--consonant. Markov treated the succession of letter types as a random sequence.The resulting transition matrix is
+
+```{r}
+P = matrix(c(1104/8638, 7534/8638, 7535/11362, 3827/11362), nrow=2, byrow=TRUE)
+rownames(P)=c("v", "c")
+colnames(P)=c("v", "c")
+P
+```
+
+Markov showed that the succession of letter typeswas not an independent sequence.For instance, if letter types were independent, the probability of two successive consonants would be (11,362∕20,000)2 = 0.323, where as from Pushkins poem the probability is Pcc=0.474. Markovs work was a polemic against a now obscure mathematician whoargued that the law of large numbers only applied to independent sequences.Markov disprovedtheclaimbyshowingthat thePushkinlettersequencewasadependent sequenceforwhichthelawoflargenumbersapplied
+
+Simulate the first 20 letters (vowel/consonant) of the Pushkin poem Markov chain of Example 2.2.
+
+```{r}
+M = c("c")
+for(i in 2:20){
+  aleatorio = runif(1, 0, 1)
+  if(M[i-1] == "v"){
+    if(aleatorio < P[1,1]){
+      M[i] = "v"
+    }else{
+      M[i] = "c"
+    }
+  }else{
+    if(aleatorio < P[2,1]){
+      M[i] = "v"
+    }else{
+      M[i] = "c"
+    }
+  }
+}
+M
+```
