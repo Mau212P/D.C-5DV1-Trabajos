@@ -1,0 +1,55 @@
+---
+title: "ejercicio2_25"
+output: html_document
+date: "2024-03-16"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Ejercicio 2.25
+
+El comportamiento de los delfines en la presencia de barcos turísticos en la Patagonia, Argentina, se estudia en Dans et al. (2012). Se desarrolla un modelo de cadena de Markov, con un espacio de estados que consiste en cinco actividades principales de los delfines (socializar, viajar, merodear, alimentarse y descansar). Se obtiene la siguiente matriz de transición. Usa tecnología para estimar la distribución a largo plazo de la actividad de los delfines.
+
+```{r}
+# Define la matriz de transición
+transition_matrix <- matrix(c(0.84, 0.11, 0.01, 0.04, 0.00,
+                              0.03, 0.80, 0.04, 0.10, 0.03,
+                              0.01, 0.15, 0.70, 0.07, 0.07,
+                              0.03, 0.19, 0.02, 0.75, 0.01,
+                              0.03, 0.09, 0.05, 0.00, 0.83), 
+                            nrow = 5, byrow = TRUE)
+print(transition_matrix)
+```
+
+Calcula los valores y vectores propios de la matriz de transición
+
+```{r}
+eigen <- eigen(t(transition_matrix))
+```
+
+Encuentra el índice del valor propio más cercano a 1
+
+```{r}
+stationary_index <- which.min(abs(eigen$values - 1))
+```
+
+Encuentra el vector propio correspondiente al valor propio más cercano a 1
+
+```{r}
+stationary_distribution <- eigen$vectors[, stationary_index]
+```
+
+Normaliza el vector propio para que sume 1
+
+```{r}
+stationary_distribution <- stationary_distribution / sum(stationary_distribution)
+```
+
+Imprime la distribución estacionaria
+
+```{r}
+print("Distribución estacionaria de la actividad de los delfines:")
+print(stationary_distribution)
+```
