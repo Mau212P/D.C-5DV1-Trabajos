@@ -1,0 +1,35 @@
+---
+title: "Ejercicio2_!9"
+output: html_document
+date: "2024-03-15"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Ejercicio 2.19
+
+Sea P la matriz de transición de una cadena de Markov en k estados. Denotemos la matriz de identificación k \* k.
+
+Considere la matriz Q=(1-p)I+pP, para 0\<p\<1.
+
+Demuestre que Q es una matriz estocástica. Dar una interpretación probabilística de la dinámica de una cadena de Markov gobernada por la matriz Q en términos de la cadena de Markov original.
+
+La matriz esta definida como:
+
+$Q=(1-p)I+pP$
+
+Calculamos la suma de las columnas de $Q$:
+
+$\sum_{i=1}^kQ_i = \sum_{i=1}^k((1-p)I+pP)_i$
+
+$= \sum_{i=1}^k((1-p)I)_i + \sum_{i=1}^kP_i$
+
+$=(1-p)\sum_{i=1}kI_i+p\sum_{i=1}^k P_i$
+
+$=(1-p)+p$
+
+$=1$
+
+Por lo tanto, hemos demostrado que las columnas de $Q$ suman 1, lo que confirma que $Q$ es una matriz estocástica

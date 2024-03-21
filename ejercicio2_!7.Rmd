@@ -1,0 +1,27 @@
+---
+title: "Ejercicio2_17"
+output: html_document
+date: "2024-03-15"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Ejercicio 2.17
+
+Sea P una matriz estocástica. Demuestre que λ=1 es un valor propio de P. ¿Cuál es el vector propio asociado?
+
+Demostrar que ${\lambda}=1$ es un valor propio de una matriz estocástica
+
+Recordemos que una matriz estocástica es una matriz cuadrada cuyas filas suman 1.
+
+$P=matriz->estocastica$
+
+entonces la suma de las entradas de cada fila es 1.
+
+$v=(1,1,1,...,1)$ es un vector propio de $P$ asociado al valor propio ${\lambda}=1$
+
+ya que al multiplicar $P$ por $v$, la suma de cada fila de la matriz resultante será la misma que la suma de las entradas de $v$, que es 1.
+
+Por lo tanto ${\lambda}=1$ es un vector propio de $P$, y el vector propio asociado es $v=(1,1,1,...,1)$

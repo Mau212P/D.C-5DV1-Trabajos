@@ -1,0 +1,75 @@
+---
+title: "2.13 ejercicio"
+output: html_document
+date: "2024-03-14"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Ejercicio 2.13
+
+Cuando se devuelve un libro, se vuelve a colocar en el estante de la biblioteca una posicion más adelante de donde estaba originalmente. Si se devuelve el libro que esta al frente del estante, se vuelve a colocar al frente del estante. Por lo tanto, si el orden de los libros es (a,b,c,d,e) y se elige el libro d, eñl nuevo orden es (a.b.d.c.e). Este metodo de reorganizacion se denomina esquema de transposicion o avance-1. Proporcione la matriz de transicion para el esquema de transposicion de un estante con 3 libros, (a,b,c).
+
+En esta parte del codigo, definimos el numero de elementos,al igual que generar todas las permutaciones posibles, y luego las comvertimos en cadenas de carecteres.
+
+```{r}
+library(combinat)
+
+elementos <- c("a", "b", "c")
+
+todas_permutaciones <- unique(permn(elementos))
+
+todas_permutaciones <- lapply(todas_permutaciones, paste, collapse = "")
+
+print(todas_permutaciones)
+```
+
+Ahora ya generamos todas nuestras permutaciones posibles, procederemos a nombrar a nuestras filas y columnas.
+
+```{r}
+orden_deseado <- c("abc", "acb", "bac", "bca", "cab", "cba")
+
+todas_permutaciones <- todas_permutaciones[match(orden_deseado, todas_permutaciones)]
+
+print(todas_permutaciones)
+```
+
+Nombramos a las filas y columnas de acuerdo al orden respecto al ejemplo 2.10
+
+```{r}
+matriz <- matrix(0, nrow = 6, ncol = 6)
+
+rownames(matriz) <- todas_permutaciones
+colnames(matriz) <- todas_permutaciones
+
+print(matriz)
+```
+
+Definimos los valores dentro de nuestra matriz, Pa, Pb y Pc todo esto dependiendo al orden en que quedan acomodados los libros, recordar que una posicion adelante de donde se tomo inicialmente, y con base a este dato obtenemos las probabilidades.
+
+```{r}
+
+matriz["abc", "acb"] <- "Pc"
+matriz["abc", "bac"] <- "Pb"
+matriz["acb", "abc"] <- "Pb"
+matriz["acb", "cab"] <- "Pc"
+matriz["bac", "abc"] <- "Pa"
+matriz["bac", "bca"] <- "Pc"
+matriz["bca", "acb"] <- "Pc"
+matriz["bca", "bac"] <- "Pa"
+matriz["cab", "cab"] <- "Pc"
+matriz["cab", "cba"] <- "Pb"
+matriz["cba", "bca"] <- "Pb"
+matriz["abc", "abc"] <- "Pa"
+matriz["acb", "acb"] <- "Pa"
+matriz["cba", "cba"] <- "Pc"
+matriz["bac", "bac"] <- "Pb"
+matriz["bca", "cba"] <- "Pc"
+matriz["cba", "cab"] <- "Pa"
+matriz["bca", "bca"] <- "Pb"
+
+print(matriz)
+
+```

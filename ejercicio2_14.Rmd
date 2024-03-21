@@ -1,0 +1,99 @@
+---
+title: "ejercicio2_14"
+output: html_document
+date: "2024-03-15"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Ejercicio 2.14
+
+Hay k canciones en el reproductor de musica de Mary. El reproductor está configurado en modo aleatorio, que reproduce canciones de manera uniforme y aleatoria, muestreando con reemplazo. Por tanto, las repeticiones son posibles. Sea Xi el numero de canciones unicas que se han escuchado después de n-sima reproduccion.
+
+a)  Demuestre que x0,x1... es una cadena de Markov y proporcione la matriz de transicion.
+
+```{r}
+k <- 8
+
+matriz <- matrix(0, nrow = k, ncol = k)
+
+nombres <- c(0:4,"...","k-1", "k")
+rownames(matriz) <- colnames(matriz) <- nombres
+
+print(matriz)
+
+
+```
+
+asignamos valores a nuestra matriz de transicion
+
+```{r}
+
+matriz["0", "1"] <- "1"
+matriz["1", "1"] <- "1/k"
+matriz["1", "2"] <- "k-1/k"
+matriz["2", "2"] <- "2/k"
+matriz["2", "3"] <- "k-2/k"
+matriz["3", "3"] <- "3/k"
+matriz["3", "4"] <- "k-3/k"
+matriz["4", "4"] <- "4/k"
+matriz["0", "1"] <- "1"
+matriz["k-1", "k-1"] <- "k-1/k"
+matriz["k-1", "k"] <- "1/k"
+matriz["k", "k"] <- "1"
+matriz["0", "..."] <- "..."
+matriz["1", "..."] <- "..."
+matriz["2", "..."] <- "..."
+matriz["3", "..."] <- "..."
+matriz["4", "..."] <- "..."
+matriz["...", "..."] <- "..."
+matriz["k-1", "..."] <- "..."
+matriz["k", "..."] <- "..."
+
+
+print(matriz)
+```
+
+b)  Si Mary tiene 4 canciones en su reproductor de música, encuentre la probabilidad de que todas las canciones se escuchen despues de 6 reproducciones.
+
+    $P(X_1=1)= 1$
+
+    $I ={0,1,2,3,4...}$
+
+    $S = {0,1,2,3,4}$
+
+    *Matriz de transicion*
+
+    ```{r}
+    k <- 5
+
+    matriz2 <- matrix(0, nrow = k, ncol = k)
+
+    nombres <- c(0:4)
+    rownames(matriz2) <- colnames(matriz2) <- nombres
+
+    matriz2["0", "1"] <- "1"
+    matriz2["1", "1"] <- "1/4"
+    matriz2["1", "2"] <- "3/4"
+    matriz2["2", "2"] <- "1/2"
+    matriz2["2", "3"] <- "1/2"
+    matriz2["3", "3"] <- "3/4"
+    matriz2["3", "4"] <- "1/4"
+    matriz2["4", "4"] <- "1"
+
+    print(matriz2)
+    ```
+
+${\alpha_0} = (1,0,0,0,0)$
+
+${\alpha_1} = (0,1,0,0,0)$
+
+${\alpha_2} = (0,\frac{1}{4},\frac{3}{4},0,0)$
+
+${\alpha_3} = (0,\frac{1}{16},\frac{9}{16},\frac{3}{8},0)$
+
+${\alpha_4} = (0,\frac{1}{64},\frac{21}{64},\frac{9}{16},\frac{3}{32})$
+
+${\alpha_5} = (0,\frac{1}{256},\frac{45}{256},\frac{75}{128},\frac{9}{32})$
